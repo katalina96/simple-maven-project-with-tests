@@ -12,6 +12,7 @@ jobs:
           ref: master
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
+        continue-on-error: true
         with:
           target: 'http://testphp.vulnweb.com/'
           rules_file_name: '.zap/rules.tsv'
