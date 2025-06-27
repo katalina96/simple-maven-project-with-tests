@@ -1,0 +1,19 @@
+name: Run SonarQube with Maven
+on: push 
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+	steps: 
+	  - name: Checkout 
+	    uses: actions/checkout@v4 
+	  - name: Setup JDK 11
+	    uses: actions/setup-java@v4
+		with: 
+		  java-version: 11
+		  distribution: 'temurin'
+		  cache: maven 
+	  - name: Build with Maven Cloud 
+	    run: mvn -B verify sonar:sonar -Dsonar.projectkey=github-actions-maven -Dsonar.organization=Ashok-company -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.login=$SONAR_TOKEN 
+		env: 
+		  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
